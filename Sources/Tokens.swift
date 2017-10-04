@@ -29,7 +29,7 @@ open class AccessTokenStore : PostgresStORM {
 	public var updated: Int = 0
 
 	/// Idle period specified when token was created
-	public var idle: Int = 86400 // 86400 seconds = 1 day
+	public var idle: Int = 7776000 // 86400 seconds = 1 day
 
 	/// Table name used to store Tokens
 	override open func table() -> String {

@@ -32,19 +32,36 @@ public class AuthHandlersJSON {
 	/// JSON Login action (POST)
 	open static func loginHandlerPOST(request: HTTPRequest, _ response: HTTPResponse) {
 		response.setHeader(.contentType, value: "application/json")
-
-		var resp = [String: String]()
-		guard let username = request.param(name: "username"),
-			let password = request.param(name: "password") else {
-				resp["error"] = "Missing username or password"
-				do {
-					try response.setBody(json: resp)
-				} catch {
-					print(error)
-				}
-				response.completed()
-				return
-		}
+        
+        guard let postBodyString = request.postBodyString else {
+            Log.error(message: "Error fetching the post body parameters")
+            response.appendBody(string: try! "Error fetching the post body parameters".jsonEncodedString())
+            response.completed()
+            return
+        }
+        
+        var resp = [String: String]()
+        var decodedParams : [String: String]?
+        
+        do {
+            decodedParams = try postBodyString.jsonDecode() as? [String: String]
+        } catch {
+            
+        }
+        
+        guard let params = decodedParams,
+            let username = params["username"],
+            let password = params["password"] else {
+                resp["error"] = "Missing username or password"
+                do {
+                    try response.setBody(json: resp)
+                } catch {
+                    print(error)
+                }
+                response.completed()
+                return
+        }
+        
 		let credentials = UsernamePassword(username: username, password: password)
 
 		do {
