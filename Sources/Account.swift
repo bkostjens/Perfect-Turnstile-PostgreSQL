@@ -6,6 +6,7 @@
 //
 //
 
+import Foundation
 import Turnstile
 import TurnstileCrypto
 import PostgresStORM
@@ -15,8 +16,14 @@ import StORM
 open class AuthAccount : PostgresStORM, Account {
 
 	/// The User account's Unique ID
-	public var uniqueID: String = ""
+	public var id: UUID = UUID()
 
+    public var uniqueID: String {
+        get {
+            return id.uuidString
+        }
+    }
+    
 	/// The username with which the user will log in with
 	public var username: String = ""
 
@@ -47,20 +54,21 @@ open class AuthAccount : PostgresStORM, Account {
 	}
 
 	/// Shortcut to store the id
-	public func id(_ newid: String) {
-		uniqueID = newid
+	public func id(_ newid: UUID) {
+		id = newid
 	}
 
 	/// Set incoming data from database to object
 	override open func to(_ this: StORMRow) {
-		uniqueID	= this.data["id"] as? String ?? ""
-		username	= this.data["username"] as? String ?? ""
-		password	= this.data["password"] as? String ?? ""
-		facebookID	= this.data["facebookid"] as? String ?? ""
-		googleID	= this.data["googleid"] as? String ?? ""
-		firstname	= this.data["firstname"] as? String ?? ""
-		lastname	= this.data["lastname"] as? String ?? ""
-		email		= this.data["email"] as? String ?? ""
+        let idString    = this.data["id"] as? String ?? ""
+        id      	    = UUID(uuidString: idString) ?? UUID()
+		username	    = this.data["username"] as? String ?? ""
+		password	    = this.data["password"] as? String ?? ""
+		facebookID	    = this.data["facebookid"] as? String ?? ""
+		googleID	    = this.data["googleid"] as? String ?? ""
+		firstname	    = this.data["firstname"] as? String ?? ""
+		lastname	    = this.data["lastname"] as? String ?? ""
+		email		    = this.data["email"] as? String ?? ""
 	}
 
 	/// Iterate through rows and set to object data
@@ -145,7 +153,7 @@ public struct AuthenticationConfig {
 
 import PerfectHTTP
 import SwiftString
-
+import TurnstilePerfect
 
 public struct AuthFilter: HTTPRequestFilter {
     var authenticationConfig = AuthenticationConfig()
