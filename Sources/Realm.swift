@@ -10,6 +10,7 @@ import Turnstile
 import PostgresStORM
 import TurnstileCrypto
 import TurnstilePerfect
+import Foundation
 
 /// The "Turnstile Realm" that holds the main routing functionality for request filters
 open class AuthRealm : Realm {
@@ -86,7 +87,7 @@ open class AuthRealm : Realm {
 
 		let account = AuthAccount()
 		let newAccount = AuthAccount()
-		newAccount.id(String(random.secureToken))
+		newAccount.id(UUID())
 
 		switch credentials {
 		case let credentials as UsernamePassword:
