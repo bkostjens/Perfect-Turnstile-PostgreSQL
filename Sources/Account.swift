@@ -31,10 +31,10 @@ open class AuthAccount : PostgresStORM, Account {
 	public var password: String = ""
 
 	/// Stored Facebook ID when logging in with Facebook
-	public var facebookID: String = ""
-
-	/// Stored Google ID when logging in with Google
-	public var googleID: String = ""
+//    public var facebookID: String = ""
+//
+//    /// Stored Google ID when logging in with Google
+//    public var googleID: String = ""
 
 	/// Optional first name
 	public var firstname: String = ""
@@ -64,8 +64,8 @@ open class AuthAccount : PostgresStORM, Account {
         id      	    = UUID(uuidString: idString) ?? UUID()
 		username	    = this.data["username"] as? String ?? ""
 		password	    = this.data["password"] as? String ?? ""
-		facebookID	    = this.data["facebookid"] as? String ?? ""
-		googleID	    = this.data["googleid"] as? String ?? ""
+//        facebookID        = this.data["facebookid"] as? String ?? ""
+//        googleID        = this.data["googleid"] as? String ?? ""
 		firstname	    = this.data["firstname"] as? String ?? ""
 		lastname	    = this.data["lastname"] as? String ?? ""
 		email		    = this.data["email"] as? String ?? ""
