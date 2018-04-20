@@ -80,7 +80,7 @@ open class AccessTokenStore : PostgresStORM {
 	public func new(_ u: String) -> String {
 		let rand = URandom()
 		token = rand.secureToken
-		token = token.replacingOccurrences(of: "-", with: "a")
+		//token = token.replacingOccurrences(of: "-", with: "a")
 		userid = u
 		created = now()
 		updated = now()
