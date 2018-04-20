@@ -32,6 +32,7 @@ public class AuthHandlersJSON {
 	/// JSON Login action (POST)
 	open static func loginHandlerPOST(request: HTTPRequest, _ response: HTTPResponse) {
 		response.setHeader(.contentType, value: "application/json")
+        response.setHeader("Access-Control-Allow-Origin", "*")
         
         guard let postBodyString = request.postBodyString else {
             Log.error(message: "Error fetching the post body parameters")
@@ -95,6 +96,7 @@ public class AuthHandlersJSON {
 	/// JSON Register action (POST)
 	open static func registerHandlerPOST(request: HTTPRequest, _ response: HTTPResponse) {
 		response.setHeader(.contentType, value: "application/json")
+        response.setHeader("Access-Control-Allow-Origin", "*")
 		var resp = [String: String]()
 
 		guard let username = request.param(name: "username"),
@@ -143,6 +145,7 @@ public class AuthHandlersJSON {
 	/// JSON Logout action
 	open static func logoutHandler(request: HTTPRequest, _ response: HTTPResponse) {
 		response.setHeader(.contentType, value: "application/json")
+        response.setHeader("Access-Control-Allow-Origin", "*")
 		var resp = [String: String]()
 
 		request.user.logout()
@@ -262,7 +265,7 @@ public class AuthHandlersJSON {
 	/// Allows a simple route handler for checking if the user is still logged in.
 	open static func testHandler(request: HTTPRequest, _ response: HTTPResponse) {
 		response.setHeader(.contentType, value: "application/json")
-
+        response.setHeader("Access-Control-Allow-Origin", "*")
 		var resp = [String: String]()
 
 		resp["authenticated"] = "AUTHED: \(request.user.authenticated)"
