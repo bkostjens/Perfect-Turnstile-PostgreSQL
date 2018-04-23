@@ -39,14 +39,12 @@ public class AuthHandlersWeb {
 	================================================================================================================= */
 	/// Handles the GET request for a "login" route
 	open static func loginHandlerGET(request: HTTPRequest, _ response: HTTPResponse) {
-        response.setHeader(.accessControlAllowOrigin, value: "*")
 		response.render(template: "login")
 	}
 
 
 	/// Handles the POST request for a "login" route
 	open static func loginHandlerPOST(request: HTTPRequest, _ response: HTTPResponse) {
-        response.setHeader(.accessControlAllowOrigin, value: "*")
 		guard let username = request.param(name: "username"),
 			let password = request.param(name: "password"),
 			!username.isEmpty,
@@ -74,13 +72,11 @@ public class AuthHandlersWeb {
 	================================================================================================================= */
 	/// Handles the GET request for a "register" route
 	open static func registerHandlerGET(request: HTTPRequest, _ response: HTTPResponse) {
-        response.setHeader(.accessControlAllowOrigin, value: "*")
 		response.render(template: "register")
 	}
 
 	/// Handles the POST request for a "register" route
 	open static func registerHandlerPOST(request: HTTPRequest, _ response: HTTPResponse) {
-        response.setHeader(.accessControlAllowOrigin, value: "*")
 		guard let username = request.param(name: "username"),
 			let password = request.param(name: "password"),
 			!username.isEmpty,
@@ -112,7 +108,6 @@ public class AuthHandlersWeb {
 	================================================================================================================= */
 	/// Handles the request for a "logout" route
 	open static func logoutHandler(request: HTTPRequest, _ response: HTTPResponse) {
-        response.setHeader(.accessControlAllowOrigin, value: "*")
 		response.addCookie(HTTPCookie(name: "TurnstileSession",
 									value: "\(request.user.authDetails?.sessionID)",
 									domain: nil,
