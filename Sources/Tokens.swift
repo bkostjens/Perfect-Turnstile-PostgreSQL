@@ -23,13 +23,13 @@ open class AccessTokenStore : PostgresStORM {
 	public var userid: String = ""
 
 	/// Integer relaing to the created date/time
-	public var created: Int = 0
+	public var created: Double = 0
 
 	/// Integer relaing to the last updated date/time
-	public var updated: Int = 0
+	public var updated: Double = 0
 
 	/// Idle period specified when token was created
-	public var idle: Int = 7776000 // 86400 seconds = 1 day
+	public var idle: Double = 7776000 // 86400 seconds = 1 day
 
 	/// Table name used to store Tokens
 	override open func table() -> String {
@@ -41,9 +41,9 @@ open class AccessTokenStore : PostgresStORM {
 	open override func to(_ this: StORMRow) {
 		if let val = this.data["token"]		{ token		= val as! String }
 		if let val = this.data["userid"]	{ userid	= val as! String }
-		if let val = this.data["created"]	{ created	= val as! Int }
-		if let val = this.data["updated"]	{ updated	= val as! Int }
-		if let val = this.data["idle"]		{ idle		= val as! Int}
+		if let val = this.data["created"]	{ created	= val as! Double }
+		if let val = this.data["updated"]	{ updated	= val as! Double }
+		if let val = this.data["idle"]		{ idle		= val as! Double}
 
 	}
 
@@ -58,8 +58,8 @@ open class AccessTokenStore : PostgresStORM {
 		return rows
 	}
 
-	private func now() -> Int {
-		return Int(Date.timeIntervalSinceReferenceDate)
+	private func now() -> Double {
+		return Date().timeIntervalSince1970
 	}
 
 	/// Checks to see if the token is active
